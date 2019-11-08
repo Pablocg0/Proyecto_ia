@@ -20,16 +20,23 @@ class Sociedad():
         for xs in range(0,self.numeroObjetos):
             self.memoria_palabras[xs] = []
             for ys in self.lista_comunidades:
+                #print(ys.memoria_palabras[xs])
                 self.memoria_palabras[xs] += ys.memoria_palabras[xs]
             self.total_palabras[xs].append(len(self.memoria_palabras))
             diferentes = list(set(self.memoria_palabras[xs]))
             self.total_palabras_diferentes[xs].append(len(diferentes))
+            print("///////////////////////////////")
+            print(self.memoria_palabras[xs])
+            print(diferentes)
+            print("///////////////////////////////")
+
+            print()
             if len(diferentes) ==1 :
-                total = self.memoria_palabras[ys].count(diferentes[0])
+                total = self.memoria_palabras[xs].count(diferentes[0])
                 print("-----------------------------------------")
                 print(str(total))
                 print("-----------------------------------------")
-                if total == len(self.lista_comunidades):
+                if total == len(self.lista_comunidades*(self.numeroAgentes+self.numeroAgentesEspeciales)):
                     self.convergencia[xs]= True
 
     #def guardar_datos(self):
@@ -43,6 +50,7 @@ class Sociedad():
             num_ale_2 = random.randint(0,self.numComunidades-1)
             xs.lista_agentes[num_ale].comunicacion_hablante_especial(self.lista_comunidades[num_ale_2].lista_agentes[num_ale_1],ys)
         self.actualizar_memoria()
+        print("###################################################################")
 
     def experimento(self):
         while self.rev_convergencia() == False:
@@ -74,5 +82,5 @@ class Sociedad():
             lista.append(False)
         return lista
 
-sociedad =  Sociedad(3,17,1,5)
+sociedad =  Sociedad(2,1,1,1)
 sociedad.experimento()

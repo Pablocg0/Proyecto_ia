@@ -21,13 +21,14 @@ class Comunidad():
         for ys in range(0, self.numeroObjetos):
             self.memoria_palabras[ys] = []
             for xs in self.lista_agentes:
+                print(xs.memoria[ys])
                 self.memoria_palabras[ys] += xs.memoria[ys]
                 #print(xs.memoria[ys])
             self.total_palabras[ys].append(len(self.memoria_palabras[ys]))
             diferentes = list(set(self.memoria_palabras[ys]))
-            #print(self.memoria_palabras[ys])
-            print("Palabras: ")
-            print(str(len(diferentes)))
+            print("---------------------------")
+            print(self.memoria_palabras[ys])
+            print("---------------------------")
             self.total_palabras_diferentes[ys].append(len(diferentes))
             if len(diferentes) ==1 :
                 total = self.memoria_palabras[ys].count(diferentes[0])
@@ -35,6 +36,7 @@ class Comunidad():
                     self.convergencia[ys]= True
                     for ts in self.lista_agentes:
                         ts.convergencia[ys] = True
+        print("**************************************")
 
 
 
@@ -44,7 +46,7 @@ class Comunidad():
                 if self.convergencia[xs] == False:
                     agente_es = random.choice(self.lista_agentes)
                     ys.comunicacion_hablante(agente_es,xs)
-                else:
+                elif self.convergencia[xs] == True:
                     print("El objeto numero " + str(xs) + " se llama " + ys.memoria[xs][0] )
                     #print(agente_es.memoria[xs])
         self.actualizar_memoria()
