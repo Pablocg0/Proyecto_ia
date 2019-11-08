@@ -29,9 +29,11 @@ class Agente():
             elif respuesta == False:
                 self.memoria[numObjeto].pop(0)
                 self.memoria[numObjeto].append(self.obtener_palabra())
-            else:
+            elif type(respuesta) == str:
+                print("str")
                 self.memoria[numObjeto] = []
                 self.memoria[numObjeto].append(respuesta)
+                self.convergencia[numObjeto] = False
 
 
 
@@ -48,7 +50,7 @@ class Agente():
                 self.memoria[numObjeto] = []
                 self.memoria[numObjeto].append(palabra_enviada)
             elif respuesta == False:
-                self.memoria[numObjeto].pop(len(self.memoria[numObjeto])-1)
+                self.memoria[numObjeto].pop(0)
                 nueva_palabra = self.obtener_palabra()
                 #print(nueva_palabra)
                 self.memoria[numObjeto].append(nueva_palabra)
@@ -67,11 +69,12 @@ class Agente():
                     self.memoria[numObjeto].append(palabra)
                     return False
                 else:
-                    self.memoria[numObjeto].append(palabra)
+                    self.memoria[numObjeto].insert(0,palabra)
                     return False
         elif self.convergencia[numObjeto] == True and convergencia == True:
             self.memoria[numObjeto]=[]
             self.memoria[numObjeto].append(palabra)
+            self.convergencia[numObjeto] = False
             return True
 
     def comunicacion_oyente(self, palabra, numObjeto):
@@ -87,6 +90,7 @@ class Agente():
                     return False
                 else:
                     self.memoria[numObjeto].append(palabra)
+                    self.convergencia[numObjeto] =False
                     return False
         elif self.especial == 0:
             if palabra in self.memoria[numObjeto]:
@@ -100,6 +104,7 @@ class Agente():
                     return False
                 else:
                     self.memoria[numObjeto].append(palabra)
+                    self.convergencia[numObjeto] =False
                     return False
 
 

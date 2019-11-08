@@ -21,13 +21,13 @@ class Comunidad():
         for ys in range(0, self.numeroObjetos):
             self.memoria_palabras[ys] = []
             for xs in self.lista_agentes:
-                print(xs.memoria[ys])
                 self.memoria_palabras[ys] += xs.memoria[ys]
                 #print(xs.memoria[ys])
             self.total_palabras[ys].append(len(self.memoria_palabras[ys]))
             diferentes = list(set(self.memoria_palabras[ys]))
             print("---------------------------")
             print(self.memoria_palabras[ys])
+            print(len(diferentes))
             print("---------------------------")
             self.total_palabras_diferentes[ys].append(len(diferentes))
             if len(diferentes) ==1 :
@@ -36,11 +36,17 @@ class Comunidad():
                     self.convergencia[ys]= True
                     for ts in self.lista_agentes:
                         ts.convergencia[ys] = True
+            elif len(diferentes) > 1:
+                self.convergencia[ys] =False
+                print("no convergencia")
+                for ts in self.lista_agentes:
+                    ts.convergencia[ys] = False
         print("**************************************")
 
 
 
     def comunicacion_interior(self):
+        print(self.convergencia)
         for xs in range(0,self.numeroObjetos):
             for ys in self.lista_agentes:
                 if self.convergencia[xs] == False:

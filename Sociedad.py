@@ -82,5 +82,5 @@ class Sociedad():
             lista.append(False)
         return lista
 
-sociedad =  Sociedad(2,1,1,1)
+sociedad =  Sociedad(2,3,2,4)
 sociedad.experimento()
