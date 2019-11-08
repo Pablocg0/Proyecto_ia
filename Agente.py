@@ -3,7 +3,7 @@ import pandas as df
 
 class Agente():
 
-    maxPalabras = 2
+    maxPalabras = 10
 
 
     def __init__(self,especial,numObjetos):
@@ -27,7 +27,7 @@ class Agente():
                 self.memoria[numObjeto] = []
                 self.memoria[numObjeto].append(palabra_enviada)
             elif respuesta == False:
-                self.memoria[numObjeto].pop(0)
+                self.memoria[numObjeto].pop(len(self.memoria[numObjeto])-1)
                 self.memoria[numObjeto].append(self.obtener_palabra())
             elif type(respuesta) == str:
                 print("str")

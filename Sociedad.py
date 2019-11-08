@@ -1,5 +1,6 @@
 from Comunidad import Comunidad
 import random
+import pandas as df
 
 class Sociedad():
 
@@ -82,5 +83,28 @@ class Sociedad():
             lista.append(False)
         return lista
 
-sociedad =  Sociedad(2,3,2,4)
+
+def save_data(sociedad, indice):
+    lista_palabras = sociedad.total_palabras
+    lista_palabras_totales = sociedad.total_palabras_diferentes
+    print(lista_palabras)
+    for xs in range(0,sociedad.numeroObjetos):
+        lis  = df.DataFrame(lista_palabras[xs], columns=["totalPalabras"])
+        lis2  = df.DataFrame(lista_palabras_totales[xs], columns=["totalPalabrasDiferentes"])
+        total = df.concat([lis,lis2], axis=1)
+        total.to_csv("data_sociedad_objeto_"+str(xs)+"_"+ str(indice)+".csv",encoding='utf-8',index=False)
+    comunidad = 0
+    for xs in sociedad.lista_comunidades:
+        lista_palabras = xs.total_palabras
+        lista_palabras_totales = xs.total_palabras_diferentes
+        for ys in range(0,sociedad.numeroObjetos):
+            lis  = df.DataFrame(lista_palabras[ys], columns=["totalPalabras"])
+            lis2  = df.DataFrame(lista_palabras_totales[ys], columns=["totalPalabrasDiferentes"])
+            total = df.concat([lis,lis2], axis=1)
+            total.to_csv("data_comunidad_objeto_"+str(ys)+"_"+ str(indice)+"_"+str(comunidad)+".csv",encoding='utf-8',index=False)
+            comunidad +=1
+
+
+sociedad =  Sociedad(3,5,1,2)
 sociedad.experimento()
+save_data(sociedad,0)
