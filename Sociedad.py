@@ -132,6 +132,7 @@ def save_data(sociedad, indice):
 
  if not os.path.exists(direccion):
         os.makedirs(direccion'/')
+        
 sociedad =  Sociedad(3,5,1,2, direccion)
 sociedad.experimento()
 save_data(sociedad,0)
