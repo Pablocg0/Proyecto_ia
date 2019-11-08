@@ -5,7 +5,10 @@ import pandas as df
 class Sociedad():
 
 
-    def __init__(self, numComunidades, numeroAgentes, numeroAgentesEspeciales, numObjetos):
+
+
+    def __init__(self, numComunidades, numeroAgentes, numeroAgentesEspeciales, numObjetos, direccion):
+        self.direccion
         self.numeroAgentes = numeroAgentes
         self.numeroAgentesEspeciales = numeroAgentesEspeciales
         self.numeroObjetos = numObjetos
@@ -40,7 +43,27 @@ class Sociedad():
                 if total == len(self.lista_comunidades*(self.numeroAgentes+self.numeroAgentesEspeciales)):
                     self.convergencia[xs]= True
 
-    #def guardar_datos(self):
+    def guardar_datos(self):
+        lista_palabras = self.total_palabras
+        lista_palabras_totales = self.total_palabras_diferentes
+        print(lista_palabras)
+        for xs in range(0,sociedad.numeroObjetos):
+            lis  = df.DataFrame(lista_palabras[xs], columns=["totalPalabras"])
+            lis2  = df.DataFrame(lista_palabras_totales[xs], columns=["totalPalabrasDiferentes"])
+            total = df.concat([lis,lis2], axis=1)
+            total.to_csv(self.direccion+ "/data_sociedad_objeto_"+str(xs)+"_X.csv",encoding='utf-8',index=False)
+        comunidad = 0
+        for xs in sociedad.lista_comunidades:
+            lista_palabras = xs.total_palabras
+            lista_palabras_totales = xs.total_palabras_diferentes
+            for ys in range(0,sociedad.numeroObjetos):
+                lis  = df.DataFrame(lista_palabras[ys], columns=["totalPalabras"])
+                lis2  = df.DataFrame(lista_palabras_totales[ys], columns=["totalPalabrasDiferentes"])
+                total = df.concat([lis,lis2], axis=1)
+                total.to_csv(self.direccion +"/data_comunidad_objeto_"+str(ys)+"_"+str(comunidad)+"_.csv",encoding='utf-8',index=False)
+                comunidad +=1
+
+
 
     def comunicacion(self):
         for xs in self.lista_comunidades:
@@ -84,6 +107,8 @@ class Sociedad():
         return lista
 
 
+direccion =
+
 def save_data(sociedad, indice):
     lista_palabras = sociedad.total_palabras
     lista_palabras_totales = sociedad.total_palabras_diferentes
@@ -92,7 +117,7 @@ def save_data(sociedad, indice):
         lis  = df.DataFrame(lista_palabras[xs], columns=["totalPalabras"])
         lis2  = df.DataFrame(lista_palabras_totales[xs], columns=["totalPalabrasDiferentes"])
         total = df.concat([lis,lis2], axis=1)
-        total.to_csv("data_sociedad_objeto_"+str(xs)+"_"+ str(indice)+".csv",encoding='utf-8',index=False)
+        total.to_csv(direccion+"/data_sociedad_objeto_"+str(xs)+"_"+ str(indice)+".csv",encoding='utf-8',index=False)
     comunidad = 0
     for xs in sociedad.lista_comunidades:
         lista_palabras = xs.total_palabras
@@ -101,10 +126,12 @@ def save_data(sociedad, indice):
             lis  = df.DataFrame(lista_palabras[ys], columns=["totalPalabras"])
             lis2  = df.DataFrame(lista_palabras_totales[ys], columns=["totalPalabrasDiferentes"])
             total = df.concat([lis,lis2], axis=1)
-            total.to_csv("data_comunidad_objeto_"+str(ys)+"_"+ str(indice)+"_"+str(comunidad)+".csv",encoding='utf-8',index=False)
+            total.to_csv(direccion+"/data_comunidad_objeto_"+str(ys)+"_"+ str(indice)+"_"+str(comunidad)+".csv",encoding='utf-8',index=False)
             comunidad +=1
 
 
-sociedad =  Sociedad(3,5,1,2)
+ if not os.path.exists(direccion):
+        os.makedirs(direccion'/')
+sociedad =  Sociedad(3,5,1,2, direccion)
 sociedad.experimento()
 save_data(sociedad,0)
