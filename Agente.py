@@ -30,7 +30,7 @@ class Agente():
                 self.memoria[numObjeto].pop(len(self.memoria[numObjeto])-1)
                 self.memoria[numObjeto].append(self.obtener_palabra())
             elif type(respuesta) == str:
-                print("str")
+                #print("str")
                 self.memoria[numObjeto] = []
                 self.memoria[numObjeto].append(respuesta)
                 self.convergencia[numObjeto] = False
@@ -38,7 +38,7 @@ class Agente():
 
 
     def comunicacion_hablante(self, agente, numObjeto):
-        print(self.memoria[numObjeto])
+        #print(self.memoria[numObjeto])
         if len(self.memoria[numObjeto])==0 :
             nueva_palabra = self.obtener_palabra()
             #print(nueva_palabra)
