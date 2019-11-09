@@ -59,7 +59,7 @@ class Sociedad():
                 lis2  = df.DataFrame(lista_palabras_totales[ys], columns=["totalPalabrasDiferentes"])
                 total = df.concat([lis,lis2], axis=1)
                 total.to_csv(self.direccion +"/data_comunidad_"+str(comunidad)+"_"+"objeto_"+str(ys)+"_.csv",encoding='utf-8',index=False)
-            comunidad +=1print()
+            comunidad +=1
 
 
 
@@ -75,9 +75,13 @@ class Sociedad():
         #print("###################################################################")
 
     def experimento(self):
+        ciclos = 0
         while self.rev_convergencia() == False:
             self.comunicacion()
             self.guardar_datos()
+            ciclos += 1
+            if ciclos == 20000:
+                break
         print("Convergencia")
 
     def rev_convergencia(self):
